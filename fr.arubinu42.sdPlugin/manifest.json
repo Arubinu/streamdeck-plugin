@@ -1,0 +1,79 @@
+{
+	"Actions": [
+		{
+			"Icon": "icons/CUSTOM_REQUEST_default",
+			"Name": "OBS CustomRequest",
+			"States": [
+				{
+					"Image": "icons/CUSTOM_REQUEST",
+					"TitleAlignment": "bottom",
+					"FontSize": "10"
+				}
+			],
+			"Tooltip": "Send an object to OBS Studio WebSocket clients",
+			"PropertyInspectorPath": "propertyInspector.html",
+			"SupportedInMultiActions": true,
+			"UUID": "fr.arubinu42.action.custom-request"
+		},
+		{
+			"Icon": "icons/PHASMOPHOBIA_default",
+			"Name": "Overlay Phasmophobia",
+			"States": [
+				{
+					"Image": "icons/PHASMOPHOBIA",
+					"TitleAlignment": "bottom",
+					"FontSize": "10"
+				}
+			],
+			"Tooltip": "Interacts with the overlay for Phasmophobia",
+			"PropertyInspectorPath": "propertyInspector.html",
+			"SupportedInMultiActions": true,
+			"UUID": "fr.arubinu42.action.phasmophobia"
+		},
+		{
+			"Icon": "icons/PHASMOPHOBIA_RESET_default",
+			"Name": "Overlay Phasmophobia (reset)",
+			"States": [
+				{
+					"Image": "icons/PHASMOPHOBIA_RESET",
+					"TitleAlignment": "bottom",
+					"FontSize": "10"
+				}
+			],
+			"Tooltip": "Disables all evidence on the overlay for Phasmophobia",
+			"PropertyInspectorPath": "propertyInspector.html",
+			"SupportedInMultiActions": true,
+			"UUID": "fr.arubinu42.action.phasmophobia-reset"
+		}
+	],
+	"Profiles": [
+		{
+			"Name": "Phasmophobia",
+			"ReadOnly": false,
+			"DeviceType": 2
+		}
+	],
+	"Category":"Arubinu42",
+	"CategoryIcon":"icons/pluginIcon",
+	"SDKVersion": 2,
+	"Author": "Alvin Pergens",
+	"CodePath": "index.html",
+	"Description": "Various features",
+	"Name": "Arubinu42",
+	"Icon": "icons/pluginIcon",
+	"URL": "https://arubinu42.fr",
+	"Version": "1.0.0",
+	"OS": [
+		{
+			"Platform": "mac",
+			"MinimumVersion": "10.11"
+		},
+		{
+			"Platform": "windows",
+			"MinimumVersion": "10"
+		}
+	],
+	"Software": {
+		"MinimumVersion": "4.1"
+	}
+}

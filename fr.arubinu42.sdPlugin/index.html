@@ -1,0 +1,262 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>fr.arubinu42</title>
+		<meta charset="utf-8" />
+		<script type="text/javascript" src="obs-websocket.js"></script>
+	</head>
+
+	<body>
+		<script>
+			let		obs					= new OBSWebSocket(),
+					websocket			= null,
+					connecting			= false,
+					pluginUUID			= null,
+					obs_firstConnect	= true,
+					reconnectTimeout	= null;
+
+			const	settingsCache		= {
+						OBSWS_PORT:				'4455',
+						OBSWS_PASS:				'',
+						OBSWS_IP:				'127.0.0.1',
+						OBSWS_CONNECTED:		false,
+					},
+					DestinationEnum		= Object.freeze({
+						HARDWARE_AND_SOFTWARE:	0,
+						HARDWARE_ONLY:			1,
+						SOFTWARE_ONLY:			2
+					});
+
+			var actions = {
+				onKeyUp: (action, data) => {
+					const actionName = action.split('.action.')[1].replace(/-/gi, '_').toUpperCase();
+
+					if (actionName == 'CUSTOM_REQUEST' && data.hasOwnProperty('message')) {
+						let eventData = data.message;
+						if (data.hasOwnProperty('isJson') && data.isJson)
+							eventData = JSON.parse(eventData);
+
+						obs.call('BroadcastCustomEvent', { eventData });
+					} else if (actionName == 'PHASMOPHOBIA' && data.hasOwnProperty('evidence')) {
+						let eventData = {
+							origin: 'arubinu42',
+							data: {
+								target: 'phasmophobia',
+								name: `${data.mode || 'toggle'}-evidence`,
+								data: data.evidence
+							}
+						};
+
+						obs.call('BroadcastCustomEvent', { eventData });
+					} else if (actionName == 'PHASMOPHOBIA_RESET') {
+						let eventData = {
+							origin: 'arubinu42',
+							data: {
+								target: 'phasmophobia',
+								name: 'reset-evidence',
+								data: undefined
+							}
+						};
+
+						obs.call('BroadcastCustomEvent', { eventData });
+					}
+				},
+
+				SetTitle: (context, value) => {
+					const json = {
+						event: 'setTitle',
+						context: context,
+						payload: {
+							title: value.toString(),
+							target: DestinationEnum.HARDWARE_AND_SOFTWARE
+						}
+					};
+
+					console.log(json);
+					websocket.send(JSON.stringify(json));
+				},
+
+				SetSettings: (context, settings) => {
+					const json = {
+						event: 'setSettings',
+						context: context,
+						payload: settings
+					};
+
+					console.log(json);
+					websocket.send(JSON.stringify(json));
+				},
+
+				SetGlobalSettings: (settings) => {
+					const json = {
+						event: 'setGlobalSettings',
+						context: pluginUUID,
+						payload: settings
+					};
+
+					console.log(json);
+					websocket.send(JSON.stringify(json));
+				},
+
+				GetGlobalSettings: () => {
+					const json = {
+						event: 'getGlobalSettings',
+						context: pluginUUID,
+						payload: {}
+					};
+
+					console.log(json);
+					websocket.send(JSON.stringify(json));
+				},
+
+				AddToSettings: (context, newSettings) => {
+					settingsCache[context] = newSettings;
+					console.log('AddToSettings:', [context, newSettings]);
+				}
+			};
+
+			function connectElgatoStreamDeckSocket(port, inPluginUUID, registerEvent, info) {
+				pluginUUID = inPluginUUID;
+				websocket = new WebSocket('ws://127.0.0.1:' + port);
+
+				websocket.onopen = () => {
+					let json = {
+						event: registerEvent,
+						uuid: pluginUUID,
+					};
+					websocket.send(JSON.stringify(json));
+					actions.GetGlobalSettings();
+				};
+
+				websocket.onmessage = (evt) => {
+					// Received message from Stream Deck
+					const	jsn		= JSON.parse(evt.data),
+							event	= jsn.event,
+							action	= jsn.action,
+							context	= jsn.context,
+							payload	= (jsn.payload || {});
+
+ 					//Called after requesting global state
+					if (event == 'didReceiveGlobalSettings') {
+						const settings = (payload.settings || {});
+
+						for (const key in settings) {
+							if (key == 'OBSWS_CONNECTED') continue;
+							settingsCache[key] = settings[key];
+						}
+
+						if (settingsCache.OBSWS_PORT && settingsCache.OBSWS_PASS != undefined) {
+							obsConnect(context);
+						}
+					}
+
+					//Called everytime an action is displayed on streamdeck
+					else if (event == 'willAppear') {
+					}
+
+					//Called when displaying a new property inspector
+					else if (event == 'propertyInspectorDidAppear') {
+					}
+
+					//Called when a streamdeck button is released
+					else if (event == 'keyUp') {
+						const settings = payload.settings;
+						// const coordinates = payload.coordinates;
+						// const userDesiredState = payload.userDesiredState;
+						actions.onKeyUp(action, settings);
+					}
+
+					//Called when property inspector sends data
+					else if (event == 'sendToPlugin') {
+						if (payload.hasOwnProperty('OBSW_DO_CONNECT')) {
+							settingsCache.OBSWS_IP = payload.OBSW_DO_CONNECT.ip;
+							settingsCache.OBSWS_PORT = payload.OBSW_DO_CONNECT.port;
+							settingsCache.OBSWS_PASS = payload.OBSW_DO_CONNECT.pass;
+							actions.SetGlobalSettings(settingsCache);
+							obsConnect(context);
+						}
+
+						for (const key in payload) {
+							if (settingsCache.hasOwnProperty(key)) {
+								var newValue = payload[key];
+								settingsCache[key] = newValue;
+								// actions.SetSettings(context, { value: newValue });
+							}
+						}
+
+						actions.SetGlobalSettings(settingsCache);
+					}
+				};
+
+				websocket.onclose = () => {
+					// Websocket is closed
+				};
+			};
+
+			/**
+			 * Connect to OBS via OBS-websocket
+			 */
+			function obsConnect(context) {
+				if (connecting || settingsCache.OBSWS_CONNECTED === true) return;
+
+				connecting = true; // Avoid double obs.connect() calls that messes up obs-ws
+				try {
+					const ip = settingsCache.OBSWS_IP ? settingsCache.OBSWS_IP : '127.0.0.1';
+					obs.connect(`ws://${ip}:${settingsCache.OBSWS_PORT}`, settingsCache.OBSWS_PASS, { rpcVersion: 1 })
+						.then(() => {
+							connecting = false;
+							const changed = settingsCache.OBSWS_CONNECTED != true;
+							settingsCache.OBSWS_CONNECTED = true;
+
+							//If state has changed, tell the property inspector
+							if (changed) actions.SetGlobalSettings(settingsCache);
+						});
+				} catch(error) {
+					console.log('FAILED');
+					console.log(error);
+
+					connecting = false;
+					clearTimeout(reconnectTimeout);
+					reconnectTimeout = setTimeout(() => {
+						obsConnect(context);
+					}, 5000);
+
+					return false;
+				}
+
+				if (obs_firstConnect) {
+					obs_firstConnect = false;
+
+					//Listen for socket connection close to auto reconnect
+					obs.addListener('ConnectionClosed', (e) => {
+						console.log('Connection closed', e);
+
+						connecting = false;
+						const changed = settingsCache.OBSWS_CONNECTED != false;
+						settingsCache.OBSWS_CONNECTED = false;
+
+						//If state has changed, tell the property inspector
+						if (changed) actions.SetGlobalSettings(settingsCache);
+
+						clearTimeout(reconnectTimeout);
+						reconnectTimeout = setTimeout(() => {
+							obsConnect(context);
+						}, 5000);
+					});
+
+					/*
+					//Listen for Twitchat events. Unnecessary for now
+					obs.on('CustomEvent', (e) => {
+						if (e.type == undefined) return;
+						if (e.origin != 'arubinu42') return;
+
+						console.log(e.type);
+						console.log(e.data);
+					});
+					//*/
+				}
+			}
+		</script>
+	</body>
+
+</html>
