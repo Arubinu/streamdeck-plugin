@@ -1,0 +1,86 @@
+@font-face {
+	font-family: 'Heartland';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Heartland Regular'), local('Heartland-Regular'), url(../fonts/Heartland.otf) format('opentype');
+}
+
+body {
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+	background-color: #000;
+}
+
+.container {
+	position: relative;
+	filter: grayscale(0.6);
+	transition: opacity 500ms ease-in-out;
+}
+
+.ghost {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	font-family: 'Heartland', sans-serif;
+	font-weight: 800;
+	font-size: 5rem;
+	color: #fff;
+	text-align: right;
+	text-shadow: 0 0 6px black;
+	white-space: nowrap;
+	transform: translate(-50%, -50%)  rotate(-72deg);
+	transition: opacity 500ms ease-in-out;
+	opacity: .92;
+	z-index: 2;
+}
+.ghost:not(.show) {
+	opacity: 0;
+}
+
+.evidences div,
+.evidences div > div,
+.evidences div > img {
+	transition: all 500ms ease-in-out;
+}
+.evidences div > div {
+	display: inline-block;
+	margin-left: .8rem;
+	font-family: 'Heartland', sans-serif;
+	font-weight: 800;
+	font-size: 1.5rem;
+	color: #aaa;
+	vertical-align: -.5rem;
+}
+.evidences div:not(:first-child) > div {
+	margin-top: 2rem;
+}
+.evidences div.enabled > div {
+	color: #fff;
+	text-decoration: underline;
+}
+.evidences div.disabled > div {
+	color: #fff;
+	text-decoration: line-through;
+}
+.evidences div > img {
+	width: 4rem;
+	vertical-align: middle;
+	filter: blur(1px) invert(.4);
+}
+.evidences div.enabled > img {
+	filter: none;
+}
+.evidences div.disabled > img {
+	text-decoration: line-through;
+	filter: blur(1px);
+}
+
+.data {
+	font-weight: bold;
+	font-size: 5.5em;
+	color: #ddd;
+	letter-spacing: .12em;
+	text-shadow: 0px 0px 5px rgba(0, 0, 0, 1), 0px 0px 5px rgba(0, 0, 0, 1), 0px 0px 5px rgba(0, 0, 0, 1), 0px 0px 5px rgba(0, 0, 0, 1), 0px 0px 5px rgba(0, 0, 0, 1);
+	transform: translate(1.3em, -.85em);
+}
