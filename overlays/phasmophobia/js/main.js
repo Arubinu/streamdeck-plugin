@@ -3,7 +3,7 @@ window.addEventListener('pageshow', async () => {
 			host		= 'ws://localhost:4455',
 			password	= '';
 
-	const	ghost				= document.querySelector('.ghost'),
+	const	ghost				= document.querySelectorAll('.ghost'),
 			evidences			= document.querySelector('.evidences'),
 			evidences_class		= ['emf-5', 'fingerprints', 'ghost-writing', 'freezing-temperatures', 'dots-projector', 'ghost-orb', 'spirit-box'],
 			evidences_ghosts	= {
@@ -108,8 +108,10 @@ window.addEventListener('pageshow', async () => {
 			}
 
 			const found = ghost_finder(evidences_generator());
-			ghost.classList.toggle('show', !!found);
-			if (found) ghost.innerText = found;
+			for (const elem of ghost) {
+				elem.classList.toggle('show', !!found);
+				if (found) elem.innerText = found;
+			}
 		}
 	});
 

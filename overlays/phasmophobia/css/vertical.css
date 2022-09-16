@@ -6,6 +6,7 @@
 }
 
 body {
+	overflow: hidden;
 	display: flex;
 	justify-content: flex-start;
 	align-items: flex-start;
@@ -14,22 +15,26 @@ body {
 
 .container {
 	position: relative;
-	filter: grayscale(0.6);
 	transition: opacity 500ms ease-in-out;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: auto;
+	height: 100vh;
 }
 
 .ghost {
 	position: absolute;
-	top: 50%;
-	left: 50%;
+	top: calc(50% - 3.5rem);
 	font-family: 'Heartland', sans-serif;
 	font-weight: 800;
 	font-size: 5rem;
 	color: #fff;
-	text-align: right;
+	text-align: center;
 	text-shadow: 0 0 6px black;
 	white-space: nowrap;
-	transform: translate(-50%, -50%)  rotate(-72deg);
+	transform: translate(-50%, 0%) rotate(-72deg);
 	transition: opacity 500ms ease-in-out;
 	opacity: .92;
 	z-index: 2;
@@ -37,42 +42,57 @@ body {
 .ghost:not(.show) {
 	opacity: 0;
 }
+.ghost:first-child {
+	left: -6rem;
+}
+.ghost:not(:first-child) {
+	left: 11rem;
+}
 
-.evidences div,
-.evidences div > div,
-.evidences div > img {
+.evidences > div {
+	text-align: center;
+	white-space: nowrap;
+}
+
+.evidences > div > div {
+	position: absolute;
+}
+.evidences > div > div:first-child {
+	right: 100%;
+}
+.evidences > div > div:not(:first-child) {
+	left: 100%;
+}
+
+.evidences > div > div,
+.evidences > div > img {
 	transition: all 500ms ease-in-out;
 }
-.evidences div > div {
+.evidences > div > div {
 	display: inline-block;
-	margin-left: .8rem;
+	margin: 1.4rem .8rem 0;
 	font-family: 'Heartland', sans-serif;
 	font-weight: 800;
 	font-size: 1.5rem;
 	color: #aaa;
-	vertical-align: -.5rem;
 }
-.evidences div:not(:first-child) > div {
-	margin-top: 2rem;
-}
-.evidences div.enabled > div {
+.evidences > div.enabled > div {
 	color: #fff;
 	text-decoration: underline;
 }
-.evidences div.disabled > div {
+.evidences > div.disabled > div {
 	color: #fff;
 	text-decoration: line-through;
 }
-.evidences div > img {
+.evidences > div > img {
 	width: 4rem;
 	vertical-align: middle;
 	filter: blur(1px) invert(.4);
 }
-.evidences div.enabled > img {
+.evidences > div.enabled > img {
 	filter: none;
 }
-.evidences div.disabled > img {
-	text-decoration: line-through;
+.evidences > div.disabled > img {
 	filter: blur(1px);
 }
 

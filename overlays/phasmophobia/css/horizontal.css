@@ -1,0 +1,112 @@
+@font-face {
+	font-family: 'Heartland';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Heartland Regular'), local('Heartland-Regular'), url(../fonts/Heartland.otf) format('opentype');
+}
+
+body {
+	overflow: hidden;
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+	background-color: #000;
+}
+
+.container {
+	position: relative;
+	transition: opacity 500ms ease-in-out;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: auto;
+	height: 100vh;
+}
+
+.ghost {
+	position: absolute;
+	font-family: 'Heartland', sans-serif;
+	font-weight: 800;
+	font-size: 5rem;
+	color: #fff;
+	text-align: center;
+	text-shadow: 0 0 6px black;
+	white-space: nowrap;
+	transform: translate(0%, -50%);
+	transition: opacity 500ms ease-in-out;
+	opacity: .92;
+	z-index: 2;
+}
+.ghost:not(.show) {
+	opacity: 0;
+}
+.ghost:first-child {
+	top: calc(50% + -4.5rem);
+}
+.ghost:not(:first-child) {
+	top: calc(50% + 6.5rem);
+}
+
+.evidences > div {
+	display: inline-block;
+	text-align: center;
+	white-space: nowrap;
+}
+
+.evidences > div > div {
+	position: absolute;
+	width: 15rem;
+	transform-origin: left;
+}
+.evidences > div > div:first-child {
+	top: calc(50% + -4.8rem);
+	text-align: left;
+	transform: translate(1.3rem, 0rem) rotate(-70deg);
+}
+.evidences > div > div:not(:first-child) {
+	top: calc(50% + 14.3rem);
+	text-align: right;
+	transform: translate(-7.8rem, 0rem) rotate(-70deg);
+}
+
+.evidences > div > div,
+.evidences > div > img {
+	transition: all 500ms ease-in-out;
+}
+.evidences > div > div {
+	display: inline-block;
+	margin: 1.4rem .8rem 0;
+	font-family: 'Heartland', sans-serif;
+	font-weight: 800;
+	font-size: 1.5rem;
+	color: #aaa;
+}
+.evidences > div.enabled > div {
+	color: #fff;
+	text-decoration: underline;
+}
+.evidences > div.disabled > div {
+	color: #fff;
+	text-decoration: line-through;
+}
+.evidences > div > img {
+	width: 4rem;
+	vertical-align: middle;
+	filter: blur(1px) invert(.4);
+}
+.evidences > div.enabled > img {
+	filter: none;
+}
+.evidences > div.disabled > img {
+	filter: blur(1px);
+}
+
+.data {
+	font-weight: bold;
+	font-size: 5.5em;
+	color: #ddd;
+	letter-spacing: .12em;
+	text-shadow: 0px 0px 5px rgba(0, 0, 0, 1), 0px 0px 5px rgba(0, 0, 0, 1), 0px 0px 5px rgba(0, 0, 0, 1), 0px 0px 5px rgba(0, 0, 0, 1), 0px 0px 5px rgba(0, 0, 0, 1);
+	transform: translate(1.3em, -.85em);
+}
