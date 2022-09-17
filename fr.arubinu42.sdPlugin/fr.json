@@ -1,0 +1,40 @@
+{
+  "Description": "Fonctionnalités diverses",
+  "fr.arubinu42.action.custom-request": {
+    "Name": "OBS CustomRequest",
+    "Tooltip": "Envoi un objet aux clients WebSocket d'OBS Studio"
+  },
+  "fr.arubinu42.action.phasmophobia": {
+    "Name": "Overlay Phasmophobia",
+    "Tooltip": "Interagit avec l'overlay pour Phasmophobia"
+  },
+  "fr.arubinu42.action.phasmophobia-reset": {
+    "Name": "Overlay Phasmophobia (réinitialisation)",
+    "Tooltip": "Désactive toutes les preuves sur l'overlay pour Phasmophobia"
+  },
+  "Localization": {
+    "OBS Websocket credentials": "Identifiants OBS Websocket",
+    "Set your credentials": "Définissez vos identifiants",
+    "IP": "IP",
+    "Port": "Port",
+    "Pass": "Mot de passe",
+    "Where can i find these values?": "Où puis-je trouver ces valeurs?",
+	"You can find these values on OBS under the \"Tools -> obs websocket\" menu.": "Vous pouvez trouver ces valeurs sur OBS dans le menu \"Outils -> obs websocket\".",
+    "Connect": "Connexion",
+    "Parameters": "Paramètres",
+    "Message": "Message",
+    "Type": "Type",
+    "Evidence": "Preuve",
+    "EMF Level 5": "EMF Niveau 5",
+    "Fingerprints": "Empreintes digitales",
+    "Ghost Writing": "Écriture Fantômatique",
+    "Freezing Temperatures": "Températures Glaciales",
+    "D.O.T.S Projector": "Projecteur D.O.T.S",
+    "Ghost Orb": "Orbe Fantômatique",
+    "Spirit Box": "Spirit Box",
+    "Mode": "Mode",
+    "Found": "Trouvé",
+    "Impossible": "Impossible",
+    "Next state": "État suivant"
+  }
+}
