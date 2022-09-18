@@ -109,6 +109,25 @@
 				pluginAction	= null,
 				actionSettings	= {};
 
+			function SyncChange(event) {
+				const update = (event || !actionSettings.hasOwnProperty(this.dataset.sync));
+
+				let value = this.value;
+				if (this.getAttribute('type') == 'checkbox') {
+					value = this.checked;
+				} else if (this.getAttribute('type') == 'radio') {
+					for (const radio of document.querySelectorAll(`[name="${this.name}"]`)) {
+						if (radio.checked)
+							value = radio.value;
+					}
+				}
+
+				console.log('change:', this.dataset.sync, 'value:', value, 'update:', update);
+				actionSettings[this.dataset.sync] = value;
+				if (update)
+					$SD.api.setSettings($SD.uuid, actionSettings);
+			}
+
 			if ($SD) {
 				$SD.on('connected', (jsn) => {
 					const settings = jsn.actionInfo.payload.settings;
@@ -134,26 +153,9 @@
 					populate(actionSettings);
 
 					for (const el of document.querySelectorAll('[data-sync]')) {
-						function onChange() {
-							let value = this.value;
-							if (this.getAttribute('type') == 'checkbox') {
-								value = this.checked;
-							} else if (this.getAttribute('type') == 'radio') {
-								for (const radio of document.querySelectorAll(`[name="${this.name}"]`)) {
-									if (radio.checked)
-										value = radio.value;
-								}
-							}
-
-							console.log('onChange:', this.dataset.sync, value);
-
-							actionSettings[this.dataset.sync] = value;
-							$SD.api.setSettings($SD.uuid, actionSettings);
-						}
-
-						el.addEventListener('change', onChange);
-						el.addEventListener('input', onChange);
-						el.addEventListener('blur', onChange);
+						el.addEventListener('change', SyncChange);
+						el.addEventListener('input', SyncChange);
+						el.addEventListener('blur', SyncChange);
 					}
 
 					//Sync value from plugin's storage
@@ -181,12 +183,7 @@
 					const settings = jsn.payload.settings;
 
 					populate(settings);
-					for (const el of document.querySelectorAll('[data-sync]')) {
-						const event = document.createEvent('HTMLEvents');
-
-						event.initEvent('change', false, true);
-						el.dispatchEvent(event);
-					}
+					for (const el of document.querySelectorAll('[data-sync]')) SyncChange.apply(el);
 				});
 			};
 
