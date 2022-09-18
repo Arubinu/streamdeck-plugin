@@ -68,12 +68,6 @@ window.addEventListener('pageshow', async () => {
 
 	obs.on('ConnectionOpened', () => {
 		console.log('Connected');
-
-		setTimeout(() => {
-			const data = { prout: 42 };
-			const edata = { origin: 'arubinu42', data }
-			obs.call('BroadcastCustomEvent', { eventData: edata });
-		}, 5000);
 	});
 	obs.on('ConnectionClosed', () => {
 		console.log('Disconnected');

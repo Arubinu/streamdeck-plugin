@@ -179,7 +179,14 @@
 
 				$SD.on('didReceiveGlobalSettings', (jsn) => {
 					const settings = jsn.payload.settings;
+
 					populate(settings);
+					for (const el of document.querySelectorAll('[data-sync]')) {
+						const event = document.createEvent('HTMLEvents');
+
+						event.initEvent('change', false, true);
+						el.dispatchEvent(event);
+					}
 				});
 			};
 
