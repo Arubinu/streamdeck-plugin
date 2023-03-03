@@ -1,229 +1,152 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<title>fr.arubinu42.action</title>
-		<link rel="stylesheet" href="sdpi.css">
-		<script src="common.js"></script>
-		<style>
-			.hidden {
-				display: none;
-			}
 
-			.obsParams {
-				background-color: rgba(139, 0, 0,.25);
-				padding-bottom: 4px;
-				display: none;
-			}
-			.obsParams > .warning {
-				background-color: #8b0000;
-			}
-		</style>
-	</head>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,minimal-ui,viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-	<body>
-		<div class="sdpi-wrapper">
-			<div id="obsParams" class="obsParams">
-				<div class="sdpi-heading" data-localize="OBS Websocket credentials">OBS Websocket credentials</div>
-				<div class="sdpi-item warning">
-					<details class="message caution">
-						<summary data-localize="Set your credentials">Set your credentials</summary>
-					</details>
-				</div>
-				<div class="sdpi-item">
-					<div class="sdpi-item-label" data-localize="IP">IP</div>
-					<input class="sdpi-item-value" value="127.0.0.1" placeholder="127.0.0.1" id="OBSWS_IP">
-				</div>
-				<div class="sdpi-item">
-					<div class="sdpi-item-label" data-localize="Port">Port</div>
-					<input class="sdpi-item-value" value="4455" placeholder="4455" id="OBSWS_PORT">
-				</div>
-				<div class="sdpi-item">
-					<div class="sdpi-item-label" data-localize="Pass">Pass</div>
-					<input class="sdpi-item-value" type="password" value="" id="OBSWS_PASS">
-				</div>
-				<div class="sdpi-item">
-					<details class="sdpi-item-value">
-						<summary data-localize="Where can i find these values?">Where can i find these values?</summary>
-						<p data-localize='You can find these values on OBS under the "Tools -> obs websocket" menu.'>You can find these values on OBS under the "Tools -> obs websocket" menu.</p>
-					</details>
-				</div><div class="sdpi-item">
-					<button class="sdpi-item-value" onclick="onConnect()" data-localize="Connect">Connect</button>
-				</div>
-			</div>
+    <title>fr.arubinu42.action</title>
 
-			<div class="sdpi-heading hidden" data-action="CUSTOM_REQUEST PHASMOPHOBIA" data-localize="Parameters">Parameters</div>
+    <link rel="stylesheet" href="sdpi.css" />
+    <style type="text/css">
+      .hidden {
+        display: none;
+      }
 
-			<div type="textarea" class="sdpi-item hidden" data-action="CUSTOM_REQUEST">
-				<div class="sdpi-item-label" data-localize="Message">Message</div>
-				<div class="sdpi-item-value textarea">
-					<textarea type="textarea" class="three-lines" data-sync="message"></textarea>
-				</div>
-			</div>
+      .wsParams {
+        background-color: rgba(139, 0, 0,.25);
+        padding-bottom: 4px;
+        display: none;
+      }
+      .wsParams > .warning {
+        background-color: #8b0000;
+      }
+    </style>
+  </head>
 
-			<div type="checkbox" class="sdpi-item hidden" data-action="CUSTOM_REQUEST">
-				<div class="sdpi-item-label" data-localize="Type">Type</div>
-				<div class="sdpi-item-value">
-					<div class="sdpi-item-child">
-						<input id="CUSTOM_REQUEST_JSON" type="checkbox" value="off" data-sync="isJson" />
-						<label for="CUSTOM_REQUEST_JSON" class="sdpi-item-label"><span></span> <label data-localize="JSON">JSON</label></label>
-					</div>
-				</div>
-			</div>
+  <body>
+    <div class="sdpi-wrapper">
+      <div id="wsParams" class="wsParams">
+        <div class="sdpi-heading" data-localize="Scripts Manager Websocket">Scripts Manager Websocket</div>
+        <div class="sdpi-item warning">
+          <details class="message caution">
+            <summary data-localize="Login information">Login information</summary>
+          </details>
+        </div>
+        <div class="sdpi-item">
+          <div class="sdpi-item-label" data-localize="IP">IP</div>
+          <input class="sdpi-item-value" value="localhost" placeholder="localhost" id="WS_IP" />
+        </div>
+        <div class="sdpi-item">
+          <div class="sdpi-item-label" data-localize="Port">Port</div>
+          <input class="sdpi-item-value" value="5042" placeholder="5042" id="WS_PORT" />
+        </div>
+        <div class="sdpi-item" style="display: none;">
+          <div class="sdpi-item-label" data-localize="Pass">Pass</div>
+          <input class="sdpi-item-value" type="password" value="" id="WS_PASS" />
+        </div>
+        <div class="sdpi-item">
+          <button class="sdpi-item-value" onclick="onConnect()" data-localize="Connect">Connect</button>
+        </div>
+      </div>
 
-			<div type="select" class="sdpi-item hidden" data-action="PHASMOPHOBIA">
-				<div class="sdpi-item-label" data-localize="Evidence">Evidence</div>
-				<select class="sdpi-item-value select" data-sync="evidence">
-					<option value="emf-5" data-localize="EMF Level 5">EMF Level 5</option>
-					<option value="fingerprints" data-localize="Fingerprints">Fingerprints</option>
-					<option value="ghost-writing" data-localize="Ghost Writing">Ghost Writing</option>
-					<option value="freezing-temperatures" data-localize="Freezing Temperatures">Freezing Temperatures</option>
-					<option value="dots-projector" data-localize="D.O.T.S Projector">D.O.T.S Projector</option>
-					<option value="ghost-orb" data-localize="Ghost Orb">Ghost Orb</option>
-					<option value="spirit-box" data-localize="Spirit Box">Spirit Box</option>
-				</select>
-			</div>
+      <div class="sdpi-heading hidden" data-action="SCRIPTS_MANAGER.CUSTOM_REQUEST SCRIPTS_MANAGER.TOGGLE_SCRIPT MULTI_ACTIONS.BUTTON STREAM_FLASH.PAUSE STREAM_WIDGETS.TOGGLE_WIDGET PHASMOPHOBIA.EVIDENCE" data-localize="Parameters">Parameters</div>
 
-			<div type="radio" class="sdpi-item hidden" data-action="PHASMOPHOBIA">
-				<div class="sdpi-item-label" data-localize="Mode">Mode</div>
-				<div class="sdpi-item-value">
-					<span class="sdpi-item-child">
-						<input id="PHASMOPHOBIA_MODE1" type="radio" name="PHASMOPHOBIA_MODE" value="on" data-sync="mode">
-						<label for="PHASMOPHOBIA_MODE1" class="sdpi-item-label"><span></span> <label data-localize="Found">Found</label></label>
-					</span>
-					<span class="sdpi-item-child">
-						<input id="PHASMOPHOBIA_MODE2" type="radio" name="PHASMOPHOBIA_MODE" value="off" data-sync="mode">
-						<label for="PHASMOPHOBIA_MODE2" class="sdpi-item-label"><span></span> <label data-localize="Impossible">Impossible</label></label>
-					</span>
-					<span class="sdpi-item-child">
-						<input id="PHASMOPHOBIA_MODE3" type="radio" name="PHASMOPHOBIA_MODE" value="toggle" data-sync="mode" checked>
-						<label for="PHASMOPHOBIA_MODE3" class="sdpi-item-label"><span></span> <label data-localize="Next state">Next state</label></label>
-					</span>
-				</div>
-			</div>
-		</div>
+      <div type="textarea" class="sdpi-item hidden" data-action="SCRIPTS_MANAGER.CUSTOM_REQUEST">
+        <div class="sdpi-item-label" data-localize="Message">Message</div>
+        <div class="sdpi-item-value textarea">
+          <textarea type="textarea" class="three-lines" data-sync="message"></textarea>
+        </div>
+      </div>
 
-		<script>
-			let	uuid			= '',
-				actionName		= '',
-				pluginAction	= null,
-				actionSettings	= {};
+      <div type="checkbox" class="sdpi-item hidden" data-action="SCRIPTS_MANAGER.CUSTOM_REQUEST">
+        <div class="sdpi-item-label" data-localize="Type">Type</div>
+        <div class="sdpi-item-value">
+          <div class="sdpi-item-child">
+            <input id="CUSTOM_REQUEST_JSON" type="checkbox" value="off" data-sync="isJson" />
+            <label for="CUSTOM_REQUEST_JSON" class="sdpi-item-label"><span></span> <label data-localize="JSON">JSON</label></label>
+          </div>
+        </div>
+      </div>
 
-			function SyncChange(event) {
-				const update = (event || !actionSettings.hasOwnProperty(this.dataset.sync));
+      <div type="select" class="sdpi-item hidden" data-action="SCRIPTS_MANAGER.TOGGLE_SCRIPT">
+        <div class="sdpi-item-label" data-localize="Script">Script</div>
+        <select class="sdpi-item-value select" data-sync="script"></select>
+      </div>
 
-				let value = this.value;
-				if (this.getAttribute('type') == 'checkbox') {
-					value = this.checked;
-				} else if (this.getAttribute('type') == 'radio') {
-					for (const radio of document.querySelectorAll(`[name="${this.name}"]`)) {
-						if (radio.checked)
-							value = radio.value;
-					}
-				}
+      <div type="select" class="sdpi-item hidden" data-action="SCRIPTS_MANAGER.TOGGLE_SCRIPT">
+        <div class="sdpi-item-label" data-localize="State">State</div>
+        <select class="sdpi-item-value select" data-sync="state">
+          <option value="toggle">Toggle</option>
+          <option value="enable">Enable</option>
+          <option value="disable">Disable</option>
+        </select>
+      </div>
 
-				console.log('change:', this.dataset.sync, 'value:', value, 'update:', update);
-				actionSettings[this.dataset.sync] = value;
-				if (update)
-					$SD.api.setSettings($SD.uuid, actionSettings);
-			}
+      <div class="sdpi-item hidden" data-action="MULTI_ACTIONS.BUTTON">
+        <div class="sdpi-item-label" data-localize="Block ID">Block ID</div>
+        <input class="sdpi-item-value" inputmode="numeric" pattern="[0-9]*" type="number" min="1" data-sync="id" />
+      </div>
 
-			if ($SD) {
-				$SD.on('connected', (jsn) => {
-					const settings = jsn.actionInfo.payload.settings;
-					console.log('settings:', settings);
+      <div type="select" class="sdpi-item hidden" data-action="STREAM_FLASH.PAUSE">
+        <div class="sdpi-item-label" data-localize="State">State</div>
+        <select class="sdpi-item-value select" data-sync="state">
+          <option value="toggle">Toggle</option>
+          <option value="enable">Enable</option>
+          <option value="disable">Disable</option>
+        </select>
+      </div>
 
-					actionName = jsn.actionInfo['action'].split('.action.')[1].replace(/-/gi, '_').toUpperCase();
-					if (jsn.hasOwnProperty('actionInfo')) {
-						pluginAction = jsn.actionInfo['action'];
-					}
+      <div class="sdpi-item hidden" data-action="STREAM_WIDGETS.TOGGLE_WIDGET">
+        <div class="sdpi-item-label" data-localize="Widget Name">Widget Name</div>
+        <input class="sdpi-item-value" value="" data-sync="widget" />
+      </div>
 
-					const holders = document.querySelectorAll(`[data-action*="${actionName}"]`);
-					for (let i = 0; i < holders.length; ++i) {
-						const el = holders[i];
-						el.classList.remove('hidden');
-					}
-					const holdersRemove = document.querySelectorAll('.hidden');
-					for (let i = 0; i < holdersRemove.length; ++i) {
-						const el = holdersRemove[i];
-						el.parentElement.removeChild(el);
-					}
+      <div type="select" class="sdpi-item hidden" data-action="STREAM_WIDGETS.TOGGLE_WIDGET">
+        <div class="sdpi-item-label" data-localize="State">State</div>
+        <select class="sdpi-item-value select" data-sync="state">
+          <option value="toggle">Toggle</option>
+          <option value="enable">Enable</option>
+          <option value="disable">Disable</option>
+        </select>
+      </div>
 
-					actionSettings = Utils.getProp(jsn, 'actionInfo.payload.settings', false);
-					populate(actionSettings);
+      <div type="select" class="sdpi-item hidden" data-action="PHASMOPHOBIA.EVIDENCE">
+        <div class="sdpi-item-label" data-localize="Evidence">Evidence</div>
+        <select class="sdpi-item-value select" data-sync="evidence">
+          <option value="emf-5" data-localize="EMF Level 5">EMF Level 5</option>
+          <option value="fingerprints" data-localize="Fingerprints">Fingerprints</option>
+          <option value="ghost-writing" data-localize="Ghost Writing">Ghost Writing</option>
+          <option value="freezing-temperatures" data-localize="Freezing Temperatures">Freezing Temperatures</option>
+          <option value="dots-projector" data-localize="D.O.T.S Projector">D.O.T.S Projector</option>
+          <option value="ghost-orb" data-localize="Ghost Orb">Ghost Orb</option>
+          <option value="spirit-box" data-localize="Spirit Box">Spirit Box</option>
+        </select>
+      </div>
 
-					for (const el of document.querySelectorAll('[data-sync]')) {
-						el.addEventListener('change', SyncChange);
-						el.addEventListener('input', SyncChange);
-						el.addEventListener('blur', SyncChange);
-					}
+      <div type="radio" class="sdpi-item hidden" data-action="PHASMOPHOBIA.EVIDENCE">
+        <div class="sdpi-item-label" data-localize="Mode">Mode</div>
+        <div class="sdpi-item-value">
+          <span class="sdpi-item-child">
+            <input id="PHASMOPHOBIA.EVIDENCE_MODE1" type="radio" name="PHASMOPHOBIA.EVIDENCE_MODE" value="on" data-sync="mode">
+            <label for="PHASMOPHOBIA.EVIDENCE_MODE1" class="sdpi-item-label"><span></span> <label data-localize="Found">Found</label></label>
+          </span>
+          <span class="sdpi-item-child">
+            <input id="PHASMOPHOBIA.EVIDENCE_MODE2" type="radio" name="PHASMOPHOBIA.EVIDENCE_MODE" value="off" data-sync="mode">
+            <label for="PHASMOPHOBIA.EVIDENCE_MODE2" class="sdpi-item-label"><span></span> <label data-localize="Impossible">Impossible</label></label>
+          </span>
+          <span class="sdpi-item-child">
+            <input id="PHASMOPHOBIA.EVIDENCE_MODE3" type="radio" name="PHASMOPHOBIA.EVIDENCE_MODE" value="toggle" data-sync="mode" checked>
+            <label for="PHASMOPHOBIA.EVIDENCE_MODE3" class="sdpi-item-label"><span></span> <label data-localize="Next state">Next state</label></label>
+          </span>
+        </div>
+      </div>
+    </div>
 
-					//Sync value from plugin's storage
-					$SD.api.getGlobalSettings($SD.uuid);
-				});
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+  </body>
 
-				$SD.on('localizationLoaded', (language) => {
-					const el = (document.querySelector('.sdpi-wrapper') || document);
-
-					let t;
-					Array.from(el.querySelectorAll('sdpi-item-label')).forEach((e) => {
-						t = e.textContent.lox();
-						if (e !== t) e.innerHTML = e.innerHTML.replace(e.textContent, t);
-					});
-
-					Array.from(el.querySelectorAll('*:not(script)')).forEach((e) => {
-						if (e.childNodes && e.childNodes.length > 0 && e.childNodes[0].nodeValue && typeof e.childNodes[0].nodeValue === 'string') {
-							t = e.childNodes[0].nodeValue.lox();
-							if (e.childNodes[0].nodeValue !== t) e.childNodes[0].nodeValue = t;
-						}
-					});
-				});
-
-				$SD.on('didReceiveGlobalSettings', (jsn) => {
-					const settings = jsn.payload.settings;
-
-					populate(settings);
-					for (const el of document.querySelectorAll('[data-sync]')) SyncChange.apply(el);
-				});
-			};
-
-			function populate(settings) {
-				for (const key in settings) {
-					if (key) {
-						const input = document.querySelector(`#${key}, [data-sync="${key}"]`);
-						if (input) {
-							if (input.getAttribute('type') == 'checkbox') {
-								input.checked = settings[key];
-							} else if (input.getAttribute('type') == 'radio') {
-								for (const radio of document.querySelectorAll(`[name="${input.name}"]`)) {
-									radio.checked = (radio.value == settings[key]);
-								}
-							} else {
-								input.value = settings[key];
-							}
-						}
-					}
-				}
-
-				document.getElementById('obsParams').style.display = (settings.OBSWS_CONNECTED ? 'none' : 'block');
-			}
-
-			function sendValueToPlugin(value, param) {
-				if ($SD && $SD.connection) {
-					var payload = {};
-					payload[param] = value;
-
-					$SD.api.sendToPlugin($SD.uuid, pluginAction, payload);
-				}
-			}
-
-			function onConnect() {
-				const	ip		= document.getElementById('OBSWS_IP').value,
-						port	= document.getElementById('OBSWS_PORT').value,
-						pass	= document.getElementById('OBSWS_PASS').value;
-
-				sendValueToPlugin({ ip, port, pass }, 'OBSW_DO_CONNECT');
-			}
-		</script>
-	</body>
 </html>

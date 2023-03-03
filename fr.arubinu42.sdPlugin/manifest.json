@@ -2,7 +2,7 @@
 	"Actions": [
 		{
 			"Icon": "icons/CUSTOM_REQUEST_default",
-			"Name": "OBS CustomRequest",
+			"Name": "Scripts Manager: Custom Request",
 			"States": [
 				{
 					"Image": "icons/CUSTOM_REQUEST",
@@ -10,27 +10,111 @@
 					"FontSize": "10"
 				}
 			],
-			"Tooltip": "Send an object to OBS Studio WebSocket clients",
+			"Tooltip": "Send an object to Scripts Manager WebSocket",
 			"SupportedInMultiActions": true,
-			"UUID": "fr.arubinu42.action.custom-request"
+			"UUID": "fr.arubinu42.action.scripts-manager.custom-request"
 		},
 		{
-			"Icon": "icons/PHASMOPHOBIA_default",
-			"Name": "Overlay Phasmophobia",
+			"Icon": "icons/TOGGLE_default",
+			"Name": "Scripts Manager: Toggle Script",
 			"States": [
 				{
-					"Image": "icons/PHASMOPHOBIA",
+					"Image": "icons/TOGGLE",
+					"TitleAlignment": "bottom",
+					"FontSize": "10"
+				}
+			],
+			"Tooltip": "Activate/Deactivate a script in Scripts Manager",
+			"SupportedInMultiActions": true,
+			"UUID": "fr.arubinu42.action.scripts-manager.toggle-script"
+		},
+		{
+			"Icon": "icons/BUTTON_default",
+			"Name": "Multi Actions: Button",
+			"States": [
+				{
+					"Image": "icons/BUTTON",
+					"TitleAlignment": "bottom",
+					"FontSize": "10"
+				}
+			],
+			"Tooltip": "Activates the \"Stream Deck - Action\" block in Multi Actions of Scripts Manager",
+			"SupportedInMultiActions": true,
+			"UUID": "fr.arubinu42.action.multi-actions.button"
+		},
+		{
+			"Icon": "icons/SCREEN_default",
+			"Name": "Stream Flash: Next Screen",
+			"States": [
+				{
+					"Image": "icons/SCREEN",
+					"TitleAlignment": "bottom",
+					"FontSize": "10"
+				}
+			],
+			"Tooltip": "Changes the screen on which to display the script",
+			"SupportedInMultiActions": true,
+			"UUID": "fr.arubinu42.action.stream-flash.next-screen"
+		},
+		{
+			"Icon": "icons/PAUSE_default",
+			"Name": "Stream Flash: Pause",
+			"States": [
+				{
+					"Image": "icons/PAUSE",
+					"TitleAlignment": "bottom",
+					"FontSize": "10"
+				}
+			],
+			"Tooltip": "Enable/Disable flash pause",
+			"SupportedInMultiActions": true,
+			"UUID": "fr.arubinu42.action.stream-flash.pause"
+		},
+		{
+			"Icon": "icons/SCREEN_default",
+			"Name": "Stream Widgets: Next Screen",
+			"States": [
+				{
+					"Image": "icons/SCREEN",
+					"TitleAlignment": "bottom",
+					"FontSize": "10"
+				}
+			],
+			"Tooltip": "Changes the screen on which to display the script",
+			"SupportedInMultiActions": true,
+			"UUID": "fr.arubinu42.action.stream-widgets.next-screen"
+		},
+		{
+			"Icon": "icons/TOGGLE_default",
+			"Name": "Stream Widgets: Toggle Widget",
+			"States": [
+				{
+					"Image": "icons/TOGGLE",
+					"TitleAlignment": "bottom",
+					"FontSize": "10"
+				}
+			],
+			"Tooltip": "Activate/Deactivate a widget in Stream Widgets of Scripts Manager",
+			"SupportedInMultiActions": true,
+			"UUID": "fr.arubinu42.action.stream-widgets.toggle-widget"
+		},
+		{
+			"Icon": "icons/PHASMOPHOBIA_EVIDENCE_default",
+			"Name": "Overlay Phasmophobia: Evidence",
+			"States": [
+				{
+					"Image": "icons/PHASMOPHOBIA_EVIDENCE",
 					"TitleAlignment": "bottom",
 					"FontSize": "10"
 				}
 			],
 			"Tooltip": "Interacts with the overlay for Phasmophobia",
 			"SupportedInMultiActions": true,
-			"UUID": "fr.arubinu42.action.phasmophobia"
+			"UUID": "fr.arubinu42.action.phasmophobia.evidence"
 		},
 		{
 			"Icon": "icons/PHASMOPHOBIA_RESET_default",
-			"Name": "Overlay Phasmophobia (reset)",
+			"Name": "Overlay Phasmophobia: Reset",
 			"States": [
 				{
 					"Image": "icons/PHASMOPHOBIA_RESET",
@@ -40,7 +124,7 @@
 			],
 			"Tooltip": "Disables all evidence on the overlay for Phasmophobia",
 			"SupportedInMultiActions": true,
-			"UUID": "fr.arubinu42.action.phasmophobia-reset"
+			"UUID": "fr.arubinu42.action.phasmophobia.reset"
 		}
 	],
 	"Profiles": [
@@ -51,16 +135,16 @@
 		}
 	],
 	"Category":"Arubinu42",
-	"CategoryIcon":"icons/pluginIcon",
+	"CategoryIcon":"icons/category",
 	"SDKVersion": 2,
 	"Author": "Alvin Pergens",
 	"CodePath": "index.html",
 	"PropertyInspectorPath": "propertyinspector/index.html",
-	"Description": "Various features",
+	"Description": "Various functionalities related to Scripts Manager (software for streamers, developers, and others).",
 	"Name": "Arubinu42",
-	"Icon": "icons/pluginIcon",
+	"Icon": "icons/plugin",
 	"URL": "https://arubinu42.fr",
-	"Version": "1.0.2",
+	"Version": "2.0.0",
 	"OS": [
 		{
 			"Platform": "mac",
