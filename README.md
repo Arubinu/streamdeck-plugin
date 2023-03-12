@@ -2,7 +2,7 @@
 
 #### This plugin brings together my different tools.
 
-It communicates with Scripts Manager to control the scripts present there, but can also send information to other connected clients.
+It communicates with [Scripts Manager](https://github.com/Arubinu/Scripts-Manager) to control the scripts present there, but can also send information to other connected clients.
 
 ![](fr.arubinu42.sdPlugin/previews/1-preview.png)
 

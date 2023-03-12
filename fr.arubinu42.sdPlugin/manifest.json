@@ -43,6 +43,48 @@
 			"UUID": "fr.arubinu42.action.multi-actions.button"
 		},
 		{
+			"Icon": "icons/BUTTON_default",
+			"Name": "Multi Actions: Variable Setter",
+			"States": [
+				{
+					"Image": "icons/BUTTON",
+					"TitleAlignment": "bottom",
+					"FontSize": "10"
+				}
+			],
+			"Tooltip": "Prepare a variable for \"Multi Actions: Button\"",
+			"SupportedInMultiActions": true,
+			"UUID": "fr.arubinu42.action.multi-actions.variable-setter"
+		},
+		{
+			"Icon": "icons/CORNER_default",
+			"Name": "Notifications: Corner",
+			"States": [
+				{
+					"Image": "icons/CORNER",
+					"TitleAlignment": "bottom",
+					"FontSize": "10"
+				}
+			],
+			"Tooltip": "Changes the corner in which to display notifications",
+			"SupportedInMultiActions": true,
+			"UUID": "fr.arubinu42.action.notifications.corner"
+		},
+		{
+			"Icon": "icons/SCREEN_default",
+			"Name": "Notifications: Next Screen",
+			"States": [
+				{
+					"Image": "icons/SCREEN",
+					"TitleAlignment": "bottom",
+					"FontSize": "10"
+				}
+			],
+			"Tooltip": "Changes the screen on which to display notifications",
+			"SupportedInMultiActions": true,
+			"UUID": "fr.arubinu42.action.notifications.next-screen"
+		},
+		{
 			"Icon": "icons/SCREEN_default",
 			"Name": "Stream Flash: Next Screen",
 			"States": [
@@ -144,7 +186,7 @@
 	"Name": "Arubinu42",
 	"Icon": "icons/plugin",
 	"URL": "https://arubinu42.fr",
-	"Version": "2.0.0",
+	"Version": "2.1.0",
 	"OS": [
 		{
 			"Platform": "mac",

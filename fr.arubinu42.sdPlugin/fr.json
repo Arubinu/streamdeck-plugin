@@ -12,6 +12,18 @@
     "Name": "Multi Actions: Bouton",
     "Tooltip": "Actionne le bloc \"Stream Deck - Action\" dans Multi Actions de Scripts Manager"
   },
+  "fr.arubinu42.action.multi-actions.variable-setter": {
+    "Name": "Multi Actions: Définir une Variable",
+    "Tooltip": "Prépare une variable pour \"Multi Actions: Bouton\""
+  },
+  "fr.arubinu42.action.notifications.corner": {
+    "Name": "Notifications: Coin",
+    "Tooltip": "Changer le coin dans lequel afficher les notifications"
+  },
+  "fr.arubinu42.action.notifications.next-screen": {
+    "Name": "Notifications: Écran Suivant",
+    "Tooltip": "Changer l'écran sur lequel afficher les notifications"
+  },
   "fr.arubinu42.action.stream-flash.next-screen": {
     "Name": "Stream Flash: Écran Suivant",
     "Tooltip": "Changer l'écran sur lequel afficher le script"
@@ -39,6 +51,12 @@
   "Localization": {
     "Scripts Manager Websocket": "Scripts Manager Websocket",
     "Login information": "Informations de connexion",
+    "Toggle": "Basculer",
+    "Enable": "Activer",
+    "Disable": "Désactiver",
+    "Global": "Globale",
+    "Local": "Locale",
+    "Next": "Suivant",
     "IP": "IP",
     "Port": "Port",
     "Pass": "Mot de passe",
@@ -48,6 +66,15 @@
     "Message": "Message",
     "Type": "Type",
     "Block ID": "ID du Bloc",
+    "Variable Name": "Nom de la Variable",
+    "Value": "Valeur",
+    "True": "Vrai",
+    "False": "Faux",
+    "Corner": "Coin",
+    "Top-Left": "Haut-Gauche",
+    "Top-Right": "Haut-Droite",
+    "Bottom-Left": "Bas-Gauche",
+    "Bottom-Right": "Bas-Droite",
     "Widget Name": "Nom du Widget",
     "Evidence": "Preuve",
     "EMF Level 5": "EMF Niveau 5",

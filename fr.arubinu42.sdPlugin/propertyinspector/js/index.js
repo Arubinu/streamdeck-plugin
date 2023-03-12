@@ -28,6 +28,8 @@ function SyncChange(event) {
   if (update) {
     $SD.api.setSettings($SD.uuid, actionSettings);
   }
+
+  choice(this, value);
 }
 
 if ($SD) {
@@ -39,12 +41,12 @@ if ($SD) {
       pluginAction = jsn.actionInfo['action'];
     }
 
-    const holders = document.querySelectorAll(`[data-action*="${actionName}"]`);
+    const holders = document.querySelectorAll(`[data-action*="${actionName}"]:not([data-for])`);
     for (let i = 0; i < holders.length; ++i) {
       const el = holders[i];
       el.classList.remove('hidden');
     }
-    const holdersRemove = document.querySelectorAll('.hidden');
+    const holdersRemove = document.querySelectorAll('.hidden:not([data-for])');
     for (let i = 0; i < holdersRemove.length; ++i) {
       const el = holdersRemove[i];
       el.parentElement.removeChild(el);
@@ -120,6 +122,18 @@ if ($SD) {
   });
 };
 
+function choice(input, value) {
+  if (typeof value === 'undefined') {
+    value = input.value;
+  }
+
+  if (input.name) {
+    for (const el of document.querySelectorAll(`[data-for="${input.name}"]`)) {
+      el.classList.toggle('hidden', (el.dataset.value !== value));
+    }
+  }
+}
+
 function populate(settings) {
   for (const key in settings) {
     if (key) {
@@ -134,6 +148,8 @@ function populate(settings) {
         } else {
           input.value = settings[key];
         }
+
+        choice(input, settings[key]);
       }
     }
   }

@@ -52,6 +52,23 @@ const settingsCache = {
         ws.send(JSON.stringify({ target: 'manager', name: 'enabled', data: { name: settings.script, state: get_state(settings.state) } }));
       } else if (actionName === 'MULTI_ACTIONS.BUTTON' && settings.hasOwnProperty('id')) {
         ws.send(JSON.stringify({ target: 'multi-actions', name: 'block', data: parseInt(settings.id) }));
+      } else if (actionName === 'MULTI_ACTIONS.VARIABLE_SETTER' && settings.hasOwnProperty('name') && settings.hasOwnProperty('type') && settings.hasOwnProperty('scope')) {
+        let value = settings.string;
+        if (settings.type === 'number') {
+          value = parseInt(settings.number);
+        } else if (settings.type === 'boolean') {
+          value = settings.boolean === 'true';
+        }
+
+        ws.send(JSON.stringify({ target: 'multi-actions', name: 'variable', data: {
+          name: settings.name,
+          scope: settings.scope,
+          value
+        } }));
+      } else if (actionName === 'NOTIFICATIONS.CORNER' && settings.hasOwnProperty('corner')) {
+        ws.send(JSON.stringify({ target: 'notifications', name: 'corner', data: settings.corner }));
+      } else if (actionName === 'NOTIFICATIONS.NEXT_SCREEN') {
+        ws.send(JSON.stringify({ target: 'notifications', name: 'next-screen' }));
       } else if (actionName === 'STREAM_FLASH.NEXT_SCREEN') {
         ws.send(JSON.stringify({ target: 'stream-flash', name: 'next-screen' }));
       } else if (actionName === 'STREAM_FLASH.PAUSE' && settings.hasOwnProperty('state')) {
@@ -221,7 +238,20 @@ function get_state(state) {
 $SD.on('connected', jsn => {
   $SD.api.getGlobalSettings(jsn.uuid);
 
-  for (const action of ['scripts-manager.custom-request', 'scripts-manager.toggle-script', 'multi-actions.button', 'stream-flash.next-screen', 'stream-flash.pause', 'stream-widgets.next-screen', 'stream-widgets.toggle-widget', 'phasmophobia.evidence', 'phasmophobia.reset']) {
+  for (const action of [
+    'scripts-manager.custom-request',
+    'scripts-manager.toggle-script',
+    'multi-actions.button',
+    'multi-actions.variable-setter',
+    'notifications.corner',
+    'notifications.next-screen',
+    'stream-flash.next-screen',
+    'stream-flash.pause',
+    'stream-widgets.next-screen',
+    'stream-widgets.toggle-widget',
+    'phasmophobia.evidence',
+    'phasmophobia.reset'
+  ]) {
     $SD.on(`fr.arubinu42.action.${action}.keyUp`, actions.onKeyUp);
     $SD.on(`fr.arubinu42.action.${action}.sendToPlugin`, actions.onSendToPlugin);
     $SD.on(`fr.arubinu42.action.${action}.didReceiveSettings`, actions.onDidReceiveSettings);
