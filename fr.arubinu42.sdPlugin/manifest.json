@@ -127,6 +127,20 @@
 			"UUID": "fr.arubinu42.action.stream-widgets.next-screen"
 		},
 		{
+			"Icon": "icons/EDIT_default",
+			"Name": "Stream Widgets: Replace URL",
+			"States": [
+				{
+					"Image": "icons/EDIT",
+					"TitleAlignment": "bottom",
+					"FontSize": "10"
+				}
+			],
+			"Tooltip": "Override web page address to display as widget in Stream Widgets of Scripts Manager",
+			"SupportedInMultiActions": true,
+			"UUID": "fr.arubinu42.action.stream-widgets.replace-url"
+		},
+		{
 			"Icon": "icons/TOGGLE_default",
 			"Name": "Stream Widgets: Toggle Widget",
 			"States": [
@@ -186,7 +200,7 @@
 	"Name": "Arubinu42",
 	"Icon": "icons/plugin",
 	"URL": "https://arubinu42.fr",
-	"Version": "2.1.0",
+	"Version": "2.2.0",
 	"OS": [
 		{
 			"Platform": "mac",

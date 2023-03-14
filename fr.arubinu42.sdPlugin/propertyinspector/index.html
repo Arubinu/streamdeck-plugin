@@ -52,7 +52,7 @@
         </div>
       </div>
 
-      <div class="sdpi-heading hidden" data-action="SCRIPTS_MANAGER.CUSTOM_REQUEST SCRIPTS_MANAGER.TOGGLE_SCRIPT MULTI_ACTIONS.BUTTON MULTI_ACTIONS.VARIABLE_SETTER NOTIFICATIONS.CORNER STREAM_FLASH.PAUSE STREAM_WIDGETS.TOGGLE_WIDGET PHASMOPHOBIA.EVIDENCE" data-localize="Parameters">Parameters</div>
+      <div class="sdpi-heading hidden" data-action="SCRIPTS_MANAGER.CUSTOM_REQUEST SCRIPTS_MANAGER.TOGGLE_SCRIPT MULTI_ACTIONS.BUTTON MULTI_ACTIONS.VARIABLE_SETTER NOTIFICATIONS.CORNER STREAM_FLASH.PAUSE STREAM_WIDGETS.REPLACE_URL STREAM_WIDGETS.TOGGLE_WIDGET PHASMOPHOBIA.EVIDENCE" data-localize="Parameters">Parameters</div>
 
       <div type="textarea" class="sdpi-item hidden" data-action="SCRIPTS_MANAGER.CUSTOM_REQUEST">
         <div class="sdpi-item-label" data-localize="Message">Message</div>
@@ -173,6 +173,16 @@
           <option value="enable" data-localize="Enable">Enable</option>
           <option value="disable" data-localize="Disable">Disable</option>
         </select>
+      </div>
+
+      <div class="sdpi-item hidden" data-action="STREAM_WIDGETS.REPLACE_URL">
+        <div class="sdpi-item-label" data-localize="Widget Name">Widget Name</div>
+        <input class="sdpi-item-value" value="" data-sync="widget" />
+      </div>
+
+      <div class="sdpi-item hidden" data-action="STREAM_WIDGETS.REPLACE_URL">
+        <div class="sdpi-item-label" data-localize="URL">URL</div>
+        <input class="sdpi-item-value" type="text" data-sync="url" />
       </div>
 
       <div class="sdpi-item hidden" data-action="STREAM_WIDGETS.TOGGLE_WIDGET">

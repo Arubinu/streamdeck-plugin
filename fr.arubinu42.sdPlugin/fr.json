@@ -36,6 +36,10 @@
     "Name": "Stream Widgets: Écran Suivant",
     "Tooltip": "Changer l'écran sur lequel afficher le script"
   },
+  "fr.arubinu42.action.stream-widgets.replace-url": {
+    "Name": "Stream Widgets: Remplacer l'URL",
+    "Tooltip": "Remplace l'adresse de la page web à afficher en tant que widget dans Stream Widgets de Scripts Manager"
+  },
   "fr.arubinu42.action.stream-widgets.toggle-widget": {
     "Name": "Stream Widgets: Activer un Widget",
     "Tooltip": "Activer/Désactiver un widget dans Stream Widgets de Scripts Manager"

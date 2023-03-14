@@ -84,6 +84,8 @@ const settingsCache = {
         ws.send(JSON.stringify({ target: 'stream-flash', name: 'pause', data: { state } }));
       } else if (actionName === 'STREAM_WIDGETS.NEXT_SCREEN') {
         ws.send(JSON.stringify({ target: 'stream-widgets', name: 'next-screen' }));
+      } else if (actionName === 'STREAM_WIDGETS.REPLACE_URL' && settings.hasOwnProperty('widget') && settings.hasOwnProperty('url')) {
+        ws.send(JSON.stringify({ target: 'stream-widgets', name: 'replace-url', data: { name: settings.widget, url: settings.url } }));
       } else if (actionName === 'STREAM_WIDGETS.TOGGLE_WIDGET' && settings.hasOwnProperty('widget')) {
         ws.send(JSON.stringify({ target: 'stream-widgets', name: 'toggle-widget', data: { name: settings.widget, state: get_state(settings.state) } }));
       } else if (actionName === 'PHASMOPHOBIA.EVIDENCE') {
@@ -248,6 +250,7 @@ $SD.on('connected', jsn => {
     'stream-flash.next-screen',
     'stream-flash.pause',
     'stream-widgets.next-screen',
+    'stream-widgets.replace-url',
     'stream-widgets.toggle-widget',
     'phasmophobia.evidence',
     'phasmophobia.reset'
